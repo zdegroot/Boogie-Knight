@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void FixedUpdate()
     {
-        //FaceCorrectDirection();
+        FaceCorrectDirection();
         Animate();
         Move();
     }
@@ -34,6 +34,23 @@ public class PlayerMovement : MonoBehaviour
 
     private void FaceCorrectDirection()
     {
-        
+        if (IsNotFacingCorrectDirection())
+        {
+            Flip();
+        }
+    }
+
+    private void Flip()
+    {
+        transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+    }
+
+    private bool IsNotFacingCorrectDirection()
+    {
+        if (moveDirection.x > 0 && transform.localScale.x < 0 || moveDirection.x < 0 && transform.localScale.x > 0)
+        {
+            return true;
+        }
+        return false;
     }
 }
